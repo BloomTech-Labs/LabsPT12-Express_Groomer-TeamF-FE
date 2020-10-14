@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const url =
-  process.env.REACT_APP_API_URL ||
+  process.env.REACT_APP_API_URI ||
   'https://labspt12-express-groomer-f-api.herokuapp.com';
 
 export const axiosWithAuth = () => {
