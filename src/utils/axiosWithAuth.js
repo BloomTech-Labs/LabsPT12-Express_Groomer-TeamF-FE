@@ -9,7 +9,7 @@ export const axiosWithAuth = () => {
   return axios.create({
     baseURL: url,
     headers: {
-      Authorization: `Bearer ${oktaToken.accessToken.value}`,
+      Authorization: `Bearer ${oktaToken.idToken.value}`,
     },
   });
 };
