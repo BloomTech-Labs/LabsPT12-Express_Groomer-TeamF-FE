@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import store from './state';
+
 import {
   BrowserRouter as Router,
   Route,
@@ -19,11 +22,13 @@ import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 
 ReactDOM.render(
-  <Router>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </Router>,
+  <Provider store={store}>
+    <Router>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );
 
@@ -39,7 +44,6 @@ function App() {
   };
 
   return (
-    
     <Security {...config} onAuthRequired={authHandler}>
       <Switch>
         <Route path="/login" component={LoginPage} />
@@ -51,8 +55,9 @@ function App() {
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
         <SecureRoute path="/example-list" component={ExampleListPage} />
-        
-        <SecureRoute path="/profile-list" component={ProfileListPage} /><Route component={NotFoundPage} />
+
+        <SecureRoute path="/profile-list" component={ProfileListPage} />
+        <Route component={NotFoundPage} />
       </Switch>
     </Security>
   );
