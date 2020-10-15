@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const url =
-  process.env.REACT_APP_API_URL ||
+  process.env.REACT_APP_API_URI ||
   'https://labspt12-express-groomer-f-api.herokuapp.com';
 
 export const axiosWithAuth = () => {
@@ -9,7 +9,7 @@ export const axiosWithAuth = () => {
   return axios.create({
     baseURL: url,
     headers: {
-      Authorization: `Bearer ${oktaToken.accessToken.value}`,
+      Authorization: `Bearer ${oktaToken.idToken.value}`,
     },
   });
 };
