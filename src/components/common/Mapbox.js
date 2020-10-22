@@ -2,6 +2,7 @@ import React, { useState, useEffect, createRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 
 import { isDevelopment } from '../../utils/env';
+import { log } from '../../utils/log';
 
 // Set mapbox api key
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API || '';
@@ -15,6 +16,9 @@ const Mapbox = () => {
     lng: -76.9833,
     zoom: 10.3,
   });
+
+  // Currently selected Goomer on mapbox
+  const [groomerSelected, setGroomerSelected] = useState({});
 
   // Groomers (eventually will get from redux)
   const mapboxGroomers = {
@@ -66,6 +70,32 @@ const Mapbox = () => {
       zoom: mapboxView.zoom, // starting zoom
     });
 
+    const flyToStore = currentFeature => {
+      map.flyTo({
+        center: currentFeature.geometry.coordinates,
+        zoom: 12,
+      });
+    };
+
+    const createPopUp = currentFeature => {
+      const popUps = document.getElementsByClassName('mapboxgl-popup');
+      /** Check if there is already a popup on the map and if so, remove it */
+      if (popUps[0]) popUps[0].remove();
+
+      const popup = new mapboxgl.Popup({ closeOnClick: false })
+        .setLngLat(currentFeature.geometry.coordinates)
+        .setHTML(
+          `
+          <h3>
+            Groomer
+          </h3>
+          <h4>
+            ${currentFeature.properties.businessName}
+          </h4>`
+        )
+        .addTo(map);
+    };
+
     // Load groomer profiles onto map
     map.on('load', function(e) {
       /* Add the data to your map as a layer */
@@ -85,6 +115,29 @@ const Mapbox = () => {
       });
     });
 
+    map.on('click', function(e) {
+      /* Determine if a feature in the "locations" layer exists at that point. */
+      const features = map.queryRenderedFeatures(e.point, {
+        layers: ['locations'],
+      });
+
+      /* If yes, then: */
+      if (features.length) {
+        const clickedPoint = features[0];
+
+        console.log(clickedPoint);
+
+        /* Update selected groomer */
+        setGroomerSelected(clickedPoint.properties);
+
+        /* Fly to the point */
+        flyToStore(clickedPoint);
+
+        /* Close all other popups and display popup for clicked store */
+        // createPopUp(clickedPoint);
+      }
+    });
+
     // Mapbox move listener
     map.on('move', () => {
       if (isDevelopment) {
@@ -97,6 +150,10 @@ const Mapbox = () => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    log(groomerSelected);
+  }, [groomerSelected]);
 
   return (
     <>
