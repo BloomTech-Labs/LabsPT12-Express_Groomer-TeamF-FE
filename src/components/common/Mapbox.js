@@ -1,5 +1,7 @@
 import React, { useState, useEffect, createRef } from 'react';
 import mapboxgl from 'mapbox-gl';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import { isDevelopment } from '../../utils/env';
 import { log } from '../../utils/log';
@@ -125,8 +127,6 @@ const Mapbox = () => {
       if (features.length) {
         const clickedPoint = features[0];
 
-        console.log(clickedPoint);
-
         /* Update selected groomer */
         setGroomerSelected(clickedPoint.properties);
 
@@ -148,6 +148,43 @@ const Mapbox = () => {
           zoom: map.getZoom().toFixed(2),
         });
       }
+    });
+
+    function forwardGeocoder(query) {
+      var matchingFeatures = [];
+      for (var i = 0; i < mapboxGroomers.features.length; i++) {
+        var feature = mapboxGroomers.features[i];
+        // handle queries with different capitalization than the source data by calling toLowerCase()
+        if (
+          feature.properties.businessName
+            .toLowerCase()
+            .search(query.toLowerCase()) !== -1
+        ) {
+          // add a tree emoji as a prefix for custom data results
+          // using carmen geojson format: https://github.com/mapbox/carmen/blob/master/carmen-geojson.md
+          feature['place_name'] = '🔎 ' + feature.properties.businessName;
+          feature['center'] = feature.geometry.coordinates;
+          feature['place_type'] = ['veterinarian'];
+          matchingFeatures.push(feature);
+        }
+      }
+      return matchingFeatures;
+    }
+
+    var geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      localGeocoder: forwardGeocoder,
+      localGeocoderOnly: true,
+      zoom: 12,
+      placeholder: 'Search Groomers...',
+      mapboxgl: mapboxgl,
+    });
+
+    map.addControl(geocoder, 'top-left');
+
+    geocoder.on('result', function(ev) {
+      /* Update selected groomer */
+      setGroomerSelected(ev.result.properties);
     });
   }, []);
 
