@@ -1,6 +1,8 @@
 import React, { useState, useEffect, createRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 
+import { isDevelopment } from '../../utils/env';
+
 // Set mapbox api key
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API || '';
 
@@ -22,11 +24,31 @@ const Mapbox = () => {
       center: [mapboxView.lng, mapboxView.lat], // starting position [lng, lat]
       zoom: mapboxView.zoom, // starting zoom
     });
+
+    // Mapbox move listener
+    map.on('move', () => {
+      if (isDevelopment) {
+        // Update lat-long, zoom position
+        setMapboxView({
+          lat: map.getCenter().lng.toFixed(4),
+          lng: map.getCenter().lat.toFixed(4),
+          zoom: map.getZoom().toFixed(2),
+        });
+      }
+    });
   }, []);
 
   return (
     <>
       <div className="mapbox">
+        {isDevelopment && (
+          <div className="sidebar">
+            <div>
+              Longitude: {mapboxView.lng} | Latitude: {mapboxView.lat} | Zoom:{' '}
+              {mapboxView.zoom}
+            </div>
+          </div>
+        )}
         <div ref={$mapContainer} className="map-container" />
       </div>
     </>
