@@ -21,6 +21,7 @@ import { ProfileListPage } from './components/pages/ProfileList';
 import { LoginPage } from './components/pages/Login';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
+import { ProfileForms } from './components/pages/ProfileForm/';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -50,6 +51,7 @@ function App() {
         <Switch>
           <Route path="/login" component={LoginPage} />
           <Route path="/implicit/callback" component={LoginCallback} />
+          <Route exact path="/register-profile" component={ProfileForms} />
           {/* any of the routes you need secured should be registered as SecureRoutes */}
           <SecureRoute
             path="/"
