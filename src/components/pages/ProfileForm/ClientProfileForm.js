@@ -15,7 +15,9 @@ const ClientProfileForm = ({ user }) => {
 
   return (
     <>
-      <div style={{ margin: '0 auto' }}>CLIENT</div>
+      <h3 className="container info">
+        {user.name}, please register your Client Profile{' '}
+      </h3>
       <div className="form-container">
         <Form
           layout="horizontal"

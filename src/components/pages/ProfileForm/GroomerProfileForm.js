@@ -22,7 +22,9 @@ const GroomerProfileForm = ({ user }, props) => {
 
   return (
     <>
-      <div style={{ margin: '0 auto' }}>Groomer</div>
+      <h3 className="container info">
+        {user.name}, please register your Groomer Profile{' '}
+      </h3>
       <div className="form-container">
         <Form
           layout="horizontal"
