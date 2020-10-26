@@ -8,7 +8,11 @@ import { isDevelopment } from '../../utils/env';
 // Set mapbox api key
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API || '';
 
-const Mapbox = props => {
+/*
+ * @prop array: groomers
+ * @prop function: onGroomerSelect
+ */
+const GroomerMap = props => {
   // Mapbox element
   const $mapContainer = createRef();
 
@@ -21,45 +25,24 @@ const Mapbox = props => {
   // Currently selected Goomer on mapbox
   const [groomerSelected, setGroomerSelected] = useState({});
 
-  // Groomers (eventually will get from redux)
+  // Groomers
+  // use groomers props array to populate mapbox features layer
   const mapboxGroomers = {
     type: 'FeatureCollection',
-    features: [
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [-77.034084142948, 38.909671288923],
-        },
-        properties: {
-          id: '1',
-          groomerId: 'ce68mjqz2by3t2peo6i4',
-          businessName: 'Furry Friends Grooming & Care',
-          address: '2081 Robin Stravenue Apt. 490',
-          email: 'Lelia77@gmail.com',
-          phoneNumber: '876-403-2046',
-          lat: 5.5918,
-          lng: -159.2544,
-        },
-      },
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [-77.049766, 38.900772],
-        },
-        properties: {
-          id: '2',
-          groomerId: 'bftqzfqkq3xzj953q64r',
-          businessName: "Gillian's Fine Pet Grooming",
-          address: '7857 Runte Court Suite 257',
-          email: 'Adele77@hotmail.com',
-          phoneNumber: '725-266-0638',
-          lat: 13.4941,
-          lng: 129.8933,
-        },
-      },
-    ],
+    features: !props.groomers
+      ? []
+      : props.groomers.map(item => {
+          return {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [item.lat, item.lng],
+            },
+            properties: {
+              ...item,
+            },
+          };
+        }),
   };
 
   useEffect(() => {
@@ -209,4 +192,4 @@ const Mapbox = props => {
   );
 };
 
-export default Mapbox;
+export default GroomerMap;
