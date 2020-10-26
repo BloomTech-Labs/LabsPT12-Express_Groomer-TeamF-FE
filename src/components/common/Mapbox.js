@@ -4,19 +4,18 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import { isDevelopment } from '../../utils/env';
-import { log } from '../../utils/log';
 
 // Set mapbox api key
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API || '';
 
-const Mapbox = () => {
+const Mapbox = props => {
   // Mapbox element
   const $mapContainer = createRef();
 
   const [mapboxView, setMapboxView] = useState({
-    lat: 38.8891,
-    lng: -76.9833,
-    zoom: 10.3,
+    lat: 39.0614,
+    lng: -95.3221,
+    zoom: 4.15,
   });
 
   // Currently selected Goomer on mapbox
@@ -75,7 +74,7 @@ const Mapbox = () => {
     const flyToStore = currentFeature => {
       map.flyTo({
         center: currentFeature.geometry.coordinates,
-        zoom: 12,
+        zoom: 13,
       });
     };
 
@@ -175,7 +174,7 @@ const Mapbox = () => {
       accessToken: mapboxgl.accessToken,
       localGeocoder: forwardGeocoder,
       localGeocoderOnly: true,
-      zoom: 12,
+      zoom: 13,
       placeholder: 'Search Groomers...',
       mapboxgl: mapboxgl,
     });
@@ -189,7 +188,8 @@ const Mapbox = () => {
   }, []);
 
   useEffect(() => {
-    log(groomerSelected);
+    // Pass groomer data into callback
+    props.onGroomerSelect(groomerSelected);
   }, [groomerSelected]);
 
   return (
