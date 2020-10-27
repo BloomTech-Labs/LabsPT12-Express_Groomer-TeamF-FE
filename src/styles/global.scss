@@ -9,6 +9,7 @@ html {
 body,
 html {
   font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1,
@@ -30,10 +31,6 @@ p {
 svg {
   width: 24px;
   height: 24px;
-}
-
-section {
-  margin-bottom: 50px;
 }
 
 .app-wrapper {
