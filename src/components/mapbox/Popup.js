@@ -5,7 +5,7 @@ const Popup = ({ feature }) => {
 
   return (
     <div id={`popup-${id}`}>
-      <p>Groomer</p>
+      <h3>Groomer</h3>
       <h4>{businessName}</h4>
     </div>
   );
