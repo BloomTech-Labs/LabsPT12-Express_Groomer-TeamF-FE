@@ -154,7 +154,7 @@ const GroomerMap = props => {
         ) {
           // add a tree emoji as a prefix for custom data results
           // using carmen geojson format: https://github.com/mapbox/carmen/blob/master/carmen-geojson.md
-          feature['place_name'] = '🔎 ' + feature.properties.businessName;
+          feature['place_name'] = feature.properties.businessName;
           feature['center'] = feature.geometry.coordinates;
           feature['place_type'] = ['veterinarian'];
           matchingFeatures.push(feature);
@@ -177,6 +177,9 @@ const GroomerMap = props => {
     geocoder.on('result', function(ev) {
       /* Update selected groomer */
       setGroomerSelected(ev.result.properties);
+
+      /* Close all other popups and display popup for clicked store */
+      createPopup(ev.result);
     });
   }, []);
 
