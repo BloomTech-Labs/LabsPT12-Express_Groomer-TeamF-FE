@@ -4,7 +4,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 20px;
+  padding: 0px;
   overflow: hidden;
   border-left: 1px solid #fff;
   -webkit-box-sizing: border-box;
@@ -45,7 +45,7 @@
 .mapboxgl-popup-tip {
   width: 0;
   height: 0;
-  border: 10px solid transparent;
+  border: 8px solid transparent;
   z-index: 1;
 }
 .mapboxgl-popup-anchor-bottom,
