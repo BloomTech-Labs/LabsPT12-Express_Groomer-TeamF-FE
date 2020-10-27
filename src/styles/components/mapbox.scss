@@ -45,8 +45,9 @@
 .mapboxgl-popup-tip {
   width: 0;
   height: 0;
-  border: 8px solid transparent;
   z-index: 1;
+  border: 8px solid transparent;
+  border-bottom-color: transparent !important;
 }
 .mapboxgl-popup-anchor-bottom,
 .mapboxgl-popup-anchor-bottom-left,

@@ -22,7 +22,6 @@ const GroomerMap = props => {
   const popUpRef = useRef(
     new mapboxgl.Popup({ closeOnClick: false, offset: 15 })
   );
-  const [map, setMap] = useState(null);
 
   const [mapboxView, setMapboxView] = useState({
     lat: 39.0614,
@@ -69,7 +68,7 @@ const GroomerMap = props => {
       });
     };
 
-    const createPopUp = currentFeature => {
+    const createPopup = currentFeature => {
       // Create a mapboxgl popup
       const popupNode = document.createElement('div');
       ReactDOM.render(<Popup feature={currentFeature} />, popupNode);
@@ -79,11 +78,12 @@ const GroomerMap = props => {
         .addTo(map);
     };
 
-    const closePopUP = () => {
+    const closePopup = () => {
       /** Check if there is already a popup on the map and if so, remove it */
       const popup = document.querySelector('.mapboxgl-popup');
       if (popup) {
         popup.remove();
+        setGroomerSelected({});
       }
     };
 
@@ -108,7 +108,7 @@ const GroomerMap = props => {
 
     map.on('click', function(e) {
       // Close all popups
-      closePopUP();
+      closePopup();
 
       /* Determine if a feature in the "locations" layer exists at that point. */
       const features = map.queryRenderedFeatures(e.point, {
@@ -126,7 +126,7 @@ const GroomerMap = props => {
         flyToStore(clickedPoint);
 
         /* Close all other popups and display popup for clicked store */
-        createPopUp(clickedPoint);
+        createPopup(clickedPoint);
       }
     });
 
@@ -143,9 +143,9 @@ const GroomerMap = props => {
     });
 
     function forwardGeocoder(query) {
-      var matchingFeatures = [];
-      for (var i = 0; i < mapboxGroomers.features.length; i++) {
-        var feature = mapboxGroomers.features[i];
+      const matchingFeatures = [];
+      for (let i = 0; i < mapboxGroomers.features.length; i++) {
+        const feature = mapboxGroomers.features[i];
         // handle queries with different capitalization than the source data by calling toLowerCase()
         if (
           feature.properties.businessName
@@ -163,7 +163,7 @@ const GroomerMap = props => {
       return matchingFeatures;
     }
 
-    var geocoder = new MapboxGeocoder({
+    const geocoder = new MapboxGeocoder({
       accessToken: mapboxgl.accessToken,
       localGeocoder: forwardGeocoder,
       localGeocoderOnly: true,
