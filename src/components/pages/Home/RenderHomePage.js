@@ -4,7 +4,7 @@ import { Button } from '../../common';
 
 function RenderHomePage(props) {
   const { userInfo, authService } = props;
-  console.log(userInfo.sub);
+  console.log(userInfo);
   return (
     <div className="flux">
       <h1>Hi {userInfo.name} Welcome to Labs Basic SPA</h1>

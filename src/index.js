@@ -13,6 +13,7 @@ import {
 import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 import 'antd/dist/antd.less';
 import './styles/index.scss';
+import { Layout } from 'antd';
 
 import { NotFoundPage } from './components/pages/NotFound';
 import { ExampleListPage } from './components/pages/ExampleList';
@@ -23,6 +24,9 @@ import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 import { ProfileForms } from './components/pages/ProfileForm/';
 import { ProfilePages } from './components/pages/ProfilePage/';
+import Navbar from './components/pages/Nav/Navbar';
+import Header from './components/pages/Nav/Header';
+import Footer from './components/pages/Nav/Footer';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -46,24 +50,38 @@ function App() {
     history.push('/login');
   };
 
+  const { Content } = Layout;
+
   return (
     <div className="app-wrapper">
       <Security {...config} onAuthRequired={authHandler}>
         <Switch>
           <Route path="/login" component={LoginPage} />
           <Route path="/implicit/callback" component={LoginCallback} />
-          <Route exact path="/register-profile" component={ProfileForms} />
-          <Route exact path="/profile-page" component={ProfilePages} />
-          {/* any of the routes you need secured should be registered as SecureRoutes */}
-          <SecureRoute
-            path="/"
-            exact
-            component={() => <HomePage LoadingComponent={LoadingComponent} />}
-          />
-          <SecureRoute path="/example-list" component={ExampleListPage} />
 
-          <SecureRoute path="/profile-list" component={ProfileListPage} />
-          <Route component={NotFoundPage} />
+          {/* any of the routes you need secured should be registered as SecureRoutes */}
+          <Layout style={{ minHeight: '100vh' }}>
+            <Navbar />
+            <Layout>
+              <Header />
+              <Route exact path="/register-profile" component={ProfileForms} />
+              <Route exact path="/profile-page" component={ProfilePages} />
+
+              <Content style={{ padding: 24, minHeight: 360 }}>
+                <SecureRoute
+                  path="/"
+                  exact
+                  component={() => (
+                    <HomePage LoadingComponent={LoadingComponent} />
+                  )}
+                />
+                <SecureRoute path="/example-list" component={ExampleListPage} />
+
+                <SecureRoute path="/profile-list" component={ProfileListPage} />
+              </Content>
+              <Footer />
+            </Layout>
+          </Layout>
         </Switch>
       </Security>
     </div>

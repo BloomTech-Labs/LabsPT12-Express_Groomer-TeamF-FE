@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
+import { connect } from 'react-redux';
+import { postProfile } from '../../../state/actions/userActions';
 import GroomerProfileForm from './GroomerProfileForm';
 import ClientProfileForm from './ClientProfileForm';
 import mockdata from './mockdata';
@@ -37,4 +39,10 @@ const ProfileFormsContainer = () => {
   );
 };
 
-export default ProfileFormsContainer;
+export default connect(
+  //wondering what are going to put here because we already have the basic register Data
+  // state => {
+  //    return { userData : state.postProfileReducer.userData};
+  //  },
+  { postProfile }
+)(ProfileFormsContainer);
