@@ -1,9 +1,13 @@
-import React, { useState, useEffect, createRef } from 'react';
+import React, { useState, useEffect, createRef, useRef } from 'react';
+import ReactDOM from 'react-dom';
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import { isDevelopment } from '../../utils/env';
+
+// Component imports
+import Popup from './Popup';
 
 // Set mapbox api key
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API || '';
@@ -15,6 +19,10 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API || '';
 const GroomerMap = props => {
   // Mapbox element
   const $mapContainer = createRef();
+  const popUpRef = useRef(
+    new mapboxgl.Popup({ closeOnClick: false, offset: 15 })
+  );
+  const [map, setMap] = useState(null);
 
   const [mapboxView, setMapboxView] = useState({
     lat: 39.0614,
@@ -62,22 +70,21 @@ const GroomerMap = props => {
     };
 
     const createPopUp = currentFeature => {
-      const popUps = document.getElementsByClassName('mapboxgl-popup');
-      /** Check if there is already a popup on the map and if so, remove it */
-      if (popUps[0]) popUps[0].remove();
-
-      const popup = new mapboxgl.Popup({ closeOnClick: false })
+      // Create a mapboxgl popup
+      const popupNode = document.createElement('div');
+      ReactDOM.render(<Popup feature={currentFeature} />, popupNode);
+      popUpRef.current
         .setLngLat(currentFeature.geometry.coordinates)
-        .setHTML(
-          `
-          <h3>
-            Groomer
-          </h3>
-          <h4>
-            ${currentFeature.properties.businessName}
-          </h4>`
-        )
+        .setDOMContent(popupNode)
         .addTo(map);
+    };
+
+    const closePopUP = () => {
+      /** Check if there is already a popup on the map and if so, remove it */
+      const popup = document.querySelector('.mapboxgl-popup');
+      if (popup) {
+        popup.remove();
+      }
     };
 
     // Load groomer profiles onto map
@@ -100,6 +107,9 @@ const GroomerMap = props => {
     });
 
     map.on('click', function(e) {
+      // Close all popups
+      closePopUP();
+
       /* Determine if a feature in the "locations" layer exists at that point. */
       const features = map.queryRenderedFeatures(e.point, {
         layers: ['locations'],
@@ -116,7 +126,7 @@ const GroomerMap = props => {
         flyToStore(clickedPoint);
 
         /* Close all other popups and display popup for clicked store */
-        // createPopUp(clickedPoint);
+        createPopUp(clickedPoint);
       }
     });
 
