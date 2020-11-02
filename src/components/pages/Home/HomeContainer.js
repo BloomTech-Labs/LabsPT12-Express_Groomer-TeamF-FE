@@ -21,8 +21,6 @@ function HomeContainer({
     memoAuthService
       .getUser()
       .then(info => {
-        // if user is authenticated we can use the authService to snag some user info.
-        // isSubscribed is a boolean toggle that we're using to clean up our useEffect.
         if (isSubscribed) {
           postUserId(info.sub);
           postProfile(info);
