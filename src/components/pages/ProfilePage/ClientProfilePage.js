@@ -1,10 +1,13 @@
 import React, { useReducer } from 'react';
 import profilepic from './profilepic.png';
+import { connect } from 'react-redux';
+import ProfileEdit from '../ProfileEdit';
 
-const ClientProfilePage = ({ user }) => {
+const ClientProfilePage = props => {
+  console.log('AAAAA', props);
   return (
     <div className="container">
-      <div className="user-profile">
+      {/* <div className="user-profile">
         <div className="user-info">
           <h2>{user.name}</h2>
           <img className="profile-pic" src={profilepic} />
@@ -40,9 +43,11 @@ const ClientProfilePage = ({ user }) => {
             <img className="groomer-pic" src={profilepic} />
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
 
-export default ClientProfilePage;
+export default connect(state => {
+  return { userId: state.UserIdReducer };
+}, {})(ClientProfilePage);

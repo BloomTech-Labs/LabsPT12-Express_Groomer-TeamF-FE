@@ -1,5 +1,3 @@
-import produce from 'immer';
-
 import {
   POST_USERID_INITIAL,
   POST_USERID_SUCCESS,
@@ -11,17 +9,26 @@ const initialState = {
   userId: null,
 };
 
-export default (state = initialState, action) =>
-  produce(state, draft => {
-    switch (action.type) {
-      case POST_USERID_INITIAL:
-        draft.loading = true;
-      case POST_USERID_SUCCESS:
-        draft.userId = action.payload;
-        draft.loading = false;
-      case POST_USERID_FAILURE:
-        draft.userId = action.payload;
-      default:
-        return state;
-    }
-  });
+export default (state = initialState, action) => {
+  switch (action.type) {
+    case POST_USERID_INITIAL:
+      return {
+        ...state,
+        loading: true,
+      };
+    case POST_USERID_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        userId: action.payload,
+      };
+    case POST_USERID_FAILURE:
+      return {
+        ...state,
+        userId: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};

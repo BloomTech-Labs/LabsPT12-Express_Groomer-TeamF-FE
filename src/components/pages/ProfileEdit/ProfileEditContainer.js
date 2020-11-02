@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 import { connect } from 'react-redux';
 import { postProfile } from '../../../state/actions/userActions';
-import GroomerProfileForm from './GroomerProfileForm';
-import ClientProfileForm from './ClientProfileForm';
+import GroomerEdit from './GroomerEdit';
+import ClientEdit from './ClientEdit';
 import mockdata from './mockdata';
 
-const ProfileFormsContainer = () => {
+const ProfileEditContainer = ({ setProfileEdit }) => {
+  console.log(setProfileEdit);
   const { authState, authService } = useOktaAuth();
 
   const [userRole, setUserRole] = useState(false);
@@ -30,19 +31,15 @@ const ProfileFormsContainer = () => {
       <div style={{ margin: ' 0 auto' }}>
         <button onClick={handleChange}>Change User Type</button>
       </div>
-      {userId == 1 ? (
-        <GroomerProfileForm user={userData[userId]} />
-      ) : (
-        <ClientProfileForm user={userData[userId]} />
-      )}
+
+      <GroomerEdit user={userData[userId]} setProfileEdit={setProfileEdit} />
     </>
   );
 };
 
 export default connect(
-  //wondering what are going to put here because we already have the basic register Data
-  // state => {
-  //    return { userData : state.postProfileReducer.userData};
-  //  },
+  state => {
+    return {};
+  },
   { postProfile }
-)(ProfileFormsContainer);
+)(ProfileEditContainer);

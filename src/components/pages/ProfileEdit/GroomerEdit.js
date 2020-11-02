@@ -3,28 +3,33 @@ import { connect } from 'react-redux';
 import { Form, Input, Button } from 'antd';
 import produce from 'immer';
 
-const GroomerProfileForm = ({ user }, props) => {
+const GroomerEdit = ({ user, setProfileEdit }, props) => {
   const [groomerData, setGroomerData] = useState({});
 
+  //onFinish is a Antd Form's function that comes integrated that takes all the data on the form
+  //and passes it as key value pairs nested inside an object, so just using the event that's returned
+  //will be enough to sent the data to redux. no need to even keep track of state "manually".
+  const handleFinish = e => {
+    setProfileEdit(false);
+    console.log(e);
+    // props.postGroomerProfile(groomerData)
+  };
+
+  //in case we want to use each individual piece of input from the form we can use handleChanges,
+  //and keep track of state, but onFinish from Antd Form component takes care of submiting the data on the form.
   const handleChanges = e => {
+    console.log('bb');
     setGroomerData(
       produce(groomerData, draft => {
         Object.assign(draft, e);
       })
     );
   };
-  //it seems like onFinish takes all the form data and submits it into a new object
-  //so we might not even need the handleChanges and saving state for it tbh.
-  const handleFinish = groomerData => {
-    console.log(groomerData);
-    // props.postGroomerProfile(groomerData)
-  };
 
   return (
     <>
-      <h3 className="container info">
-        {user.name}, please register your Groomer Profile{' '}
-      </h3>
+      BBBBBBBBBBB
+      <h3 className="container name">{user.name}, change your profile </h3>
       <div className="form-container">
         <Form
           layout="horizontal"
@@ -38,12 +43,6 @@ const GroomerProfileForm = ({ user }, props) => {
             alignItems: 'flex-end',
           }}
         >
-          <Form.Item name="name" label="Name" initialValue={user.name}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="last name" label="Last Name">
-            <Input />
-          </Form.Item>
           <Form.Item name="email" label="Email">
             <Input />
           </Form.Item>
@@ -53,18 +52,13 @@ const GroomerProfileForm = ({ user }, props) => {
           <Form.Item name="pic" label="Profile Pic">
             <Input />
           </Form.Item>
-          <Form.Item label="Field">
-            <Form.Item name="field" noStyle>
-              <Input />
-            </Form.Item>
-          </Form.Item>
           <Form.Item>
             <Button
               type="primary"
               htmlType="submit"
               style={{ marginRight: 50 }}
             >
-              Submit
+              Save changes
             </Button>
           </Form.Item>
         </Form>
@@ -73,4 +67,4 @@ const GroomerProfileForm = ({ user }, props) => {
   );
 };
 
-export default GroomerProfileForm;
+export default GroomerEdit;

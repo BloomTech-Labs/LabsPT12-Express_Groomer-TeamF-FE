@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 import { connect } from 'react-redux';
-import { postUserId } from '../../../state/actions/userActions';
+import { postUserId, postProfile } from '../../../state/actions/userActions';
 import RenderHomePage from './RenderHomePage';
 
-function HomeContainer({ LoadingComponent, postUserId }) {
+function HomeContainer({
+  LoadingComponent,
+  postUserId,
+  postProfile,
+  userData,
+}) {
   const { authState, authService } = useOktaAuth();
 
-  const [userInfo, setUserInfo] = useState(null);
   // eslint-disable-next-line
   const [memoAuthService] = useMemo(() => [authService], []);
-
-  console.log(postUserId);
 
   useEffect(() => {
     let isSubscribed = true;
@@ -22,29 +24,24 @@ function HomeContainer({ LoadingComponent, postUserId }) {
         // if user is authenticated we can use the authService to snag some user info.
         // isSubscribed is a boolean toggle that we're using to clean up our useEffect.
         if (isSubscribed) {
-          setUserInfo(info);
+          postUserId(info.sub);
+          postProfile(info);
         }
       })
       .catch(err => {
         isSubscribed = false;
-        return setUserInfo(null);
+        console.log(err);
       });
     return () => (isSubscribed = false);
   }, [memoAuthService]);
 
-  const doMe = () => {
-    console.log(userInfo.sub);
-    postUserId(userInfo.sub);
-  };
-
   return (
     <>
-      <button onClick={doMe}>HIIIII</button>
-      {authState.isAuthenticated && !userInfo && (
+      {authState.isAuthenticated && !userData && (
         <LoadingComponent message="Fetching user profile..." />
       )}
-      {authState.isAuthenticated && userInfo && (
-        <RenderHomePage userInfo={userInfo} authService={authService} />
+      {authState.isAuthenticated && userData && (
+        <RenderHomePage authService={authService} />
       )}
     </>
   );
@@ -52,9 +49,7 @@ function HomeContainer({ LoadingComponent, postUserId }) {
 
 export default connect(
   state => {
-    return {};
+    return { userData: state.postProfileReducer.userData };
   },
-  { postUserId: postUserId }
+  { postUserId: postUserId, postProfile: postProfile }
 )(HomeContainer);
-
-// export default HomeContainer;

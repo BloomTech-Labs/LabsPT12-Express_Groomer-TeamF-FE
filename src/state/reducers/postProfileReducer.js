@@ -1,5 +1,3 @@
-import produce from 'immer';
-
 import {
   POST_PROFILE_INITIAL,
   POST_PROFILE_SUCCESS,
@@ -19,6 +17,7 @@ export default (state = initialState, action) => {
         loading: true,
       };
     case POST_PROFILE_SUCCESS:
+      console.log('hi');
       return {
         ...state,
         loading: false,

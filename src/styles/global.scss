@@ -59,9 +59,13 @@ svg {
   }
 }
 
+.name{
+  @include flex-center;
+}
+
 .form-container{
   margin: 0 auto;
-  margin-top: 60px;
+  margin-top: 10px;
   width: 440px;
   padding-right: 100px;
   display: flex;

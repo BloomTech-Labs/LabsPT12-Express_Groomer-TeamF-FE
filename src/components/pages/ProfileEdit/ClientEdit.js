@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import produce from 'immer';
 
-const ClientProfileForm = ({ user }) => {
+const ClientEdit = ({ user }) => {
   const [groomerData, setGroomerData] = useState({});
 
   const handleChanges = e => {
@@ -15,9 +15,7 @@ const ClientProfileForm = ({ user }) => {
 
   return (
     <>
-      <h3 className="container info">
-        {user.name}, please register your Client Profile{' '}
-      </h3>
+      <h3 className="container name">{user.name}, change your profile </h3>
       <div className="form-container">
         <Form
           layout="horizontal"
@@ -30,12 +28,6 @@ const ClientProfileForm = ({ user }) => {
             alignItems: 'flex-end',
           }}
         >
-          <Form.Item name="name" label="Name" initialValue={user.name}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="last name" label="Last Name">
-            <Input />
-          </Form.Item>
           <Form.Item name="email" label="Email">
             <Input />
           </Form.Item>
@@ -45,18 +37,14 @@ const ClientProfileForm = ({ user }) => {
           <Form.Item name="pic" label="Profile Pic">
             <Input />
           </Form.Item>
-          <Form.Item label="Field">
-            <Form.Item name="field" noStyle>
-              <Input />
-            </Form.Item>
-          </Form.Item>
+          <Form.Item label="Field"></Form.Item>
           <Form.Item>
             <Button
               type="primary"
               htmlType="submit"
               style={{ marginRight: 50 }}
             >
-              Submit
+              Save changes
             </Button>
           </Form.Item>
         </Form>
@@ -65,4 +53,4 @@ const ClientProfileForm = ({ user }) => {
   );
 };
 
-export default ClientProfileForm;
+export default ClientEdit;

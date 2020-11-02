@@ -22,7 +22,6 @@ import { ProfileListPage } from './components/pages/ProfileList';
 import { LoginPage } from './components/pages/Login';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
-import { ProfileForms } from './components/pages/ProfileForm/';
 import { ProfilePages } from './components/pages/ProfilePage/';
 import Navbar from './components/pages/Nav/Navbar';
 import Header from './components/pages/Nav/Header';
@@ -64,7 +63,6 @@ function App() {
             <Navbar />
             <Layout>
               <Header />
-              <Route exact path="/register-profile" component={ProfileForms} />
               <Route exact path="/profile-page" component={ProfilePages} />
 
               <Content style={{ padding: 24, minHeight: 360 }}>

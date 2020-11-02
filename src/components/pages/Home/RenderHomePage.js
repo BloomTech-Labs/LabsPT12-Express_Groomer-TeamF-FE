@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../common';
+import { connect } from 'react-redux';
 
 function RenderHomePage(props) {
-  const { userInfo, authService } = props;
-  console.log(userInfo);
+  const { userData, authService } = props;
+
   return (
     <div className="flux">
-      <h1>Hi {userInfo.name} Welcome to Labs Basic SPA</h1>
+      <h1>Hi {userData.name} Welcome to Labs Basic SPA</h1>
       <div>
         <p>
           This is an example of a common example of how we'd like for you to
@@ -32,4 +33,7 @@ function RenderHomePage(props) {
     </div>
   );
 }
-export default RenderHomePage;
+
+export default connect(state => {
+  return { userData: state.postProfileReducer.userData };
+}, {})(RenderHomePage);
