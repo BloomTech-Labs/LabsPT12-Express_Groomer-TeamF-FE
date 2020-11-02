@@ -1,5 +1,5 @@
 import { INITIALIZE_USER } from './userActionTypes';
-import { axiosWithAuth } from '../../utils/axiosWithAuth';
+
 import {
   POST_USERID_INITIAL,
   POST_USERID_SUCCESS,

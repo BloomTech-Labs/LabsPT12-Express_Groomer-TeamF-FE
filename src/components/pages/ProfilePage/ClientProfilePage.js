@@ -8,7 +8,7 @@ const ClientProfilePage = ({ user }) => {
   const handleChanges = e => {
     setProfileEdit(true);
   };
-
+  console.log(user);
   return (
     <div className="container">
       {profileEdit ? (
@@ -21,13 +21,10 @@ const ClientProfilePage = ({ user }) => {
           </div>
           <div className="user-info" style={{ fontSize: '1.3rem' }}>
             <span>Email: {user.email} </span>{' '}
-            <span>Telephone: {user.phone}</span>
+            <span>Username: {user.preferred_username}</span>
+            <span>Other Info: {user.family_name}</span>
           </div>
-          <button
-            style={{ border: '1px solid red' }}
-            className="edit"
-            onClick={handleChanges}
-          >
+          <button className="edit" onClick={handleChanges}>
             Edit profile
           </button>
         </div>

@@ -16,8 +16,17 @@ const ProfilePageContainer = ({ userData }) => {
 
   return (
     <div className="container" style={{ flexDirection: 'column' }}>
-      <div>
-        <button onClick={handleChange}>Change User Type</button>
+      <div className="user-info" style={{ width: 320 }}>
+        <button
+          className="edit"
+          style={{ width: 140, height: 30 }}
+          onClick={handleChange}
+        >
+          Change User Type
+        </button>
+        <span style={{ fontSize: '1.2rem' }}>
+          {userId === 1 ? 'Groomer' : 'Client'}
+        </span>
       </div>
       {userId == 1 ? (
         <GroomerProfilePage user={userData} />
