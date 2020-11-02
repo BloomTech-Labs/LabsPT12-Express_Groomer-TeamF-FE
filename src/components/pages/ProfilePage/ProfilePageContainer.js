@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import mockdata from './mockdata';
+import { connect } from 'react-redux';
 import GroomerProfilePage from './GroomerProfilePage';
 import ClientProfilePage from './ClientProfilePage';
 
-const ProfilePageContainer = () => {
-  const [userId, setUserId] = useState(0);
-  const [userData, setUserData] = useState(mockdata);
+const ProfilePageContainer = ({ userData }) => {
+  const [userId, setUserId] = useState(1);
 
   const handleChange = () => {
     if (userId == 0) {
@@ -21,12 +20,14 @@ const ProfilePageContainer = () => {
         <button onClick={handleChange}>Change User Type</button>
       </div>
       {userId == 1 ? (
-        <GroomerProfilePage user={userData[userId]} />
+        <GroomerProfilePage user={userData} />
       ) : (
-        <ClientProfilePage user={userData[userId]} />
+        <ClientProfilePage user={userData} />
       )}
     </div>
   );
 };
 
-export default ProfilePageContainer;
+export default connect(state => {
+  return { userData: state.postProfileReducer.userData };
+}, {})(ProfilePageContainer);

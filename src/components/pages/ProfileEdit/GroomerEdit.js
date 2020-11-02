@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import { Form, Input, Button } from 'antd';
 import produce from 'immer';
 
-const GroomerEdit = ({ user, setProfileEdit }, props) => {
+const GroomerEdit = ({ user, setProfileEdit, profileEdit }) => {
   const [groomerData, setGroomerData] = useState({});
+
+  console.log('in edit', user);
 
   //onFinish is a Antd Form's function that comes integrated that takes all the data on the form
   //and passes it as key value pairs nested inside an object, so just using the event that's returned
   //will be enough to sent the data to redux. no need to even keep track of state "manually".
   const handleFinish = e => {
     setProfileEdit(false);
+    profileEdit(e, 'editing');
     console.log(e);
     // props.postGroomerProfile(groomerData)
   };
@@ -46,10 +48,10 @@ const GroomerEdit = ({ user, setProfileEdit }, props) => {
           <Form.Item name="email" label="Email">
             <Input />
           </Form.Item>
-          <Form.Item name="phone" label="Phone Number">
+          <Form.Item name="preferred_username" label="Username">
             <Input />
           </Form.Item>
-          <Form.Item name="pic" label="Profile Pic">
+          <Form.Item name="family_name" label="Other Info">
             <Input />
           </Form.Item>
           <Form.Item>

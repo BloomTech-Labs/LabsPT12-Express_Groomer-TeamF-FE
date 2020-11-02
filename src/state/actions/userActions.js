@@ -8,6 +8,7 @@ import {
 import {
   POST_PROFILE_INITIAL,
   POST_PROFILE_SUCCESS,
+  EDIT_PROFILE_SUCCESS,
   POST_PROFILE_FAILURE,
 } from './userActionTypes';
 
@@ -40,11 +41,16 @@ export const postUserId = userId => async dispatch => {
   }
 };
 
-export const postProfile = userData => async dispatch => {
+export const postProfile = (userData, editing) => async dispatch => {
   dispatch({ type: POST_PROFILE_INITIAL, payload: true });
   try {
-    console.log('also here');
-    dispatch({ type: POST_PROFILE_SUCCESS, payload: userData });
+    if (editing) {
+      console.log('editing');
+      dispatch({ type: EDIT_PROFILE_SUCCESS, payload: userData });
+    } else {
+      console.log('not editing');
+      dispatch({ type: POST_PROFILE_SUCCESS, payload: userData });
+    }
   } catch (err) {
     dispatch({ type: POST_PROFILE_FAILURE, payload: err });
   }

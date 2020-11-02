@@ -1,48 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import profilepic from './profilepic.png';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { ProfileEditForm } from '../ProfileEdit';
-import { useOktaAuth } from '@okta/okta-react';
-import { axiosWithAuth } from '../../../utils/axiosWithAuth';
+import profilepic from './profilepic.png';
 
 const GroomerProfilePage = ({ user }) => {
-  useEffect(() => {
-    // console.log('trying this')
-    // axiosWithAuth().get(`https://labspt12-express-groomer-f-api.herokuapp.com/profiles/${userId}`)
-    //     .then(response => {
-    //         console.log(response)
-    //     })
-    //     .catch(error => {
-    //         console.log(error)
-    //     })
-  }, []);
-
-  const { authState, authService } = useOktaAuth();
-  const [userInfo, setUserInfo] = useState(null);
-  // eslint-disable-next-line
-  const [memoAuthService] = useMemo(() => [authService], []);
-
-  useEffect(() => {
-    let isSubscribed = true;
-
-    memoAuthService
-      .getUser()
-      .then(info => {
-        // if user is authenticated we can use the authService to snag some user info.
-        // isSubscribed is a boolean toggle that we're using to clean up our useEffect.
-        if (isSubscribed) {
-          setUserInfo(info);
-        }
-      })
-      .catch(err => {
-        isSubscribed = false;
-        return setUserInfo(null);
-      });
-    return () => (isSubscribed = false);
-  }, [memoAuthService]);
-
-  console.log(userInfo);
-
   const [profileEdit, setProfileEdit] = useState(false);
 
   const handleChanges = e => {
@@ -52,9 +12,8 @@ const GroomerProfilePage = ({ user }) => {
   return (
     <>
       <div className="container">
-        GROOMER
         {profileEdit ? (
-          <ProfileEditForm setProfileEdit={setProfileEdit} />
+          <ProfileEditForm setProfileEdit={setProfileEdit} user={user} />
         ) : (
           <div className="user-profile">
             <div className="user-info">
@@ -63,7 +22,8 @@ const GroomerProfilePage = ({ user }) => {
             </div>
             <div className="user-info" style={{ fontSize: '1.3rem' }}>
               <span>Email: {user.email} </span>{' '}
-              <span>Telephone: {user.phone}</span>
+              <span>Username: {user.preferred_username}</span>
+              <span>Ohter Info: {user.family_name}</span>
             </div>
             <button
               style={{ border: '1px solid red' }}
