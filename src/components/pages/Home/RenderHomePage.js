@@ -7,7 +7,7 @@ function RenderHomePage() {
   return (
     <div className="flux" style={{ textAlign: 'center' }}>
       <div className="user-info">
-        <h1>Hi {userData.name}</h1>
+        <h1>Hi {userData?.name}</h1>
       </div>
       <p>
         This will be the landing page after Login, we should probably do a
