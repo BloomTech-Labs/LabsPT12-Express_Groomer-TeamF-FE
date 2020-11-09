@@ -47,7 +47,7 @@ function HomeContainer({
 
 export default connect(
   state => {
-    return { userData: state.postProfileReducer.userData };
+    return { userData: state.postProfileReducer?.userData };
   },
   { postUserId: postUserId, postProfile: postProfile }
 )(HomeContainer);
