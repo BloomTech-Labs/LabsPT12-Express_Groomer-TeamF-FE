@@ -59,10 +59,10 @@ function App() {
           <Route path="/implicit/callback" component={LoginCallback} />
 
           {/* any of the routes you need secured should be registered as SecureRoutes */}
-          <Layout style={{ minHeight: '100vh' }}>
+          <Layout className="content">
+            <Header />
             <Navbar />
             <Layout>
-              <Header />
               <Route exact path="/profile-page" component={ProfilePages} />
 
               <Content style={{ padding: 24, minHeight: 360 }}>
