@@ -60,7 +60,7 @@ function ClientNav(props) {
 
         <SubMenu key="sub1" icon={<UserOutlined />} title="Profile">
           <Menu.Item key="3">
-            <NavLink to="/profile" className="nav-text">
+            <NavLink to="/profile-page" className="nav-text">
               Profile
             </NavLink>
           </Menu.Item>

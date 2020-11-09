@@ -1,34 +1,24 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '../../common';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
-function RenderHomePage(props) {
-  const { userInfo, authService } = props;
+function RenderHomePage({ userData }) {
   return (
-    <div>
-      <h1>Hi {userInfo.name} Welcome to Labs Basic SPA</h1>
-      <div>
-        <p>
-          This is an example of a common example of how we'd like for you to
-          approach components.
-        </p>
-        <p>
-          <Link to="/profile-list">Profiles Example</Link>
-        </p>
-        <p>
-          <Link to="/example-list">Example List of Items</Link>
-        </p>
-        <p>
-          <Link to="/datavis">Data Visualizations Example</Link>
-        </p>
-        <p>
-          <Button
-            handleClick={() => authService.logout()}
-            buttonText="Logout"
-          />
-        </p>
+    <div className="flux" style={{ textAlign: 'center' }}>
+      <div className="user-info">
+        <h1>Hi {userData?.name}</h1>
       </div>
+      <p>
+        This will be the landing page after Login, we should probably do a
+        conditional rendering depending on the type of user.
+      </p>
+      <p>
+        Groomer could be taken to his Shop page or something like that. Clients
+        could be taken to the Map page or something.
+      </p>
     </div>
   );
 }
-export default RenderHomePage;
+
+export default connect(state => {
+  return { userData: state.postProfileReducer.userData };
+}, {})(RenderHomePage);

@@ -4,7 +4,11 @@
 import { combineReducers } from 'redux';
 
 import userReducer from './userReducer';
+import UserIdReducer from './UserIdReducer';
+import postProfileReducer from './postProfileReducer';
 
-export const reducer = combineReducers({
-  user: userReducer,
+export default combineReducers({
+  userReducer,
+  UserIdReducer,
+  postProfileReducer,
 });

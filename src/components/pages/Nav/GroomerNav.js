@@ -51,7 +51,7 @@ function GroomerNav(props) {
           </NavLink>
         </Menu.Item>
         <Menu.Item key="2" icon={<UserOutlined />}>
-          <NavLink to="/profile" className="nav-text">
+          <NavLink to="/profile-page" className="nav-text">
             Profile
           </NavLink>
         </Menu.Item>
