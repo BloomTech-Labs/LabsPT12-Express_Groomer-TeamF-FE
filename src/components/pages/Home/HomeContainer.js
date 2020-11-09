@@ -28,7 +28,6 @@ function HomeContainer({
       })
       .catch(err => {
         isSubscribed = false;
-        console.log(err);
       });
     return () => (isSubscribed = false);
   }, [memoAuthService]);

@@ -8,7 +8,7 @@ const ClientProfilePage = ({ user }) => {
   const handleChanges = e => {
     setProfileEdit(true);
   };
-  console.log(user);
+
   return (
     <div className="container">
       {profileEdit ? (
