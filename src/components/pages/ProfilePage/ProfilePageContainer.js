@@ -7,7 +7,7 @@ const ProfilePageContainer = ({ userData }) => {
   const [userId, setUserId] = useState(1);
 
   const handleChange = () => {
-    if (userId == 0) {
+    if (userId === 0) {
       setUserId(1);
     } else {
       setUserId(0);
@@ -28,7 +28,7 @@ const ProfilePageContainer = ({ userData }) => {
           {userId === 1 ? 'Groomer' : 'Client'}
         </span>
       </div>
-      {userId == 1 ? (
+      {userId === 1 ? (
         <GroomerProfilePage user={userData} />
       ) : (
         <ClientProfilePage user={userData} />
