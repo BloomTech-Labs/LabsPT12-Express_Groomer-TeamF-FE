@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 function RenderHomePage({ userData }) {
   return (
     <div className="flux" style={{ textAlign: 'center' }}>
-      <p className="user-info">
-        <h1>Hi {userData.name}</h1>
-      </p>
+      <div className="user-info">
+        <h1>Hi {userData?.name}</h1>
+      </div>
       <p>
         This will be the landing page after Login, we should probably do a
         conditional rendering depending on the type of user.

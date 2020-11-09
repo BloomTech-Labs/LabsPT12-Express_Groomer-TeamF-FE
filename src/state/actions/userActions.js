@@ -45,10 +45,8 @@ export const postProfile = (userData, editing) => async dispatch => {
   dispatch({ type: POST_PROFILE_INITIAL, payload: true });
   try {
     if (editing) {
-      console.log('editing');
       dispatch({ type: EDIT_PROFILE_SUCCESS, payload: userData });
     } else {
-      console.log('not editing');
       dispatch({ type: POST_PROFILE_SUCCESS, payload: userData });
     }
   } catch (err) {
