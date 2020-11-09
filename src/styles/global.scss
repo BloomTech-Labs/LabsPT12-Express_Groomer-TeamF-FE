@@ -111,13 +111,17 @@ svg {
 }
 
 .user-info {
-  @include flex-center;
   width: 100%;
-  padding: 2%;
-  justify-content: space-around;
-  align-items: center;
+  padding: 30px 0;
   font-weight: 600;
   margin-bottom: 10px;
+  @include flex-center;
+  align-items: center;
+  justify-content: space-around;
+
+  h1 {
+    font-size: 3em;
+  }
 }
 
 .groomers-mini {
