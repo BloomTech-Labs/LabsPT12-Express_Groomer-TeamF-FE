@@ -1,0 +1,50 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 101;
+  padding: 0;
+
+  .header-container {
+    padding: 0 25px;
+    @include flex();
+    flex-wrap: nowrap;
+  }
+
+  .title {
+    flex: 1 1;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 0px;
+    width: 0;
+
+    h2 {
+      color: #f4f4f4;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 1.4;
+      margin-bottom: 0.5em;
+    }
+  }
+
+  .header-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 15px;
+  }
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 100;
+  padding-top: 60px;
+}
+
+.ant-menu-item svg {
+  width: 18px;
+  height: 18px;
+}

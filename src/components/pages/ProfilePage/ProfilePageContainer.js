@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import GroomerProfilePage from './GroomerProfilePage';
 import ClientProfilePage from './ClientProfilePage';
 
-const ProfilePageContainer = ({ userData }) => {
+const ProfilePageContainer = () => {
+  const userData = useSelector(state => state.postProfileReducer.userData);
   const [userId, setUserId] = useState(1);
 
   const handleChange = () => {
-    if (userId == 0) {
+    if (userId === 0) {
       setUserId(1);
     } else {
       setUserId(0);
@@ -28,15 +29,13 @@ const ProfilePageContainer = ({ userData }) => {
           {userId === 1 ? 'Groomer' : 'Client'}
         </span>
       </div>
-      {userId == 1 ? (
-        <GroomerProfilePage user={userData} />
+      {userId === 1 ? (
+        <GroomerProfilePage user={userData ? userData : {}} />
       ) : (
-        <ClientProfilePage user={userData} />
+        <ClientProfilePage user={userData ? userData : {}} />
       )}
     </div>
   );
 };
 
-export default connect(state => {
-  return { userData: state.postProfileReducer.userData };
-}, {})(ProfilePageContainer);
+export default ProfilePageContainer;

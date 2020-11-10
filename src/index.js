@@ -23,9 +23,9 @@ import { LoginPage } from './components/pages/Login';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 import { ProfilePages } from './components/pages/ProfilePage/';
-import Navbar from './components/pages/Nav/Navbar';
-import Header from './components/pages/Nav/Header';
-import Footer from './components/pages/Nav/Footer';
+import Navbar from './components/navbar/Navbar';
+import Header from './components/navbar/Header';
+import Footer from './components/navbar/Footer';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -59,10 +59,10 @@ function App() {
           <Route path="/implicit/callback" component={LoginCallback} />
 
           {/* any of the routes you need secured should be registered as SecureRoutes */}
-          <Layout style={{ minHeight: '100vh' }}>
+          <Layout className="content">
+            <Header />
             <Navbar />
             <Layout>
-              <Header />
               <Route exact path="/profile-page" component={ProfilePages} />
 
               <Content style={{ padding: 24, minHeight: 360 }}>

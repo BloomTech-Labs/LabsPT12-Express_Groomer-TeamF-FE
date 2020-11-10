@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-function RenderHomePage({ userData }) {
+function RenderHomePage() {
+  const userData = useSelector(state => state.postProfileReducer.userData);
+
   return (
     <div className="flux" style={{ textAlign: 'center' }}>
       <div className="user-info">
@@ -19,6 +21,4 @@ function RenderHomePage({ userData }) {
   );
 }
 
-export default connect(state => {
-  return { userData: state.postProfileReducer.userData };
-}, {})(RenderHomePage);
+export default RenderHomePage;
