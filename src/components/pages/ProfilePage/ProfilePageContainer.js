@@ -25,10 +25,10 @@ const ProfilePageContainer = ({ userData }) => {
           Change User Type
         </button>
         <span style={{ fontSize: '1.2rem' }}>
-          {userId === 1 ? 'Groomer' : 'Client'}
+          {userData.type === 1 ? 'Groomer' : 'Client'}
         </span>
       </div>
-      {userId == 1 ? (
+      {userData.type == 1 ? (
         <GroomerProfilePage user={userData} />
       ) : (
         <ClientProfilePage user={userData} />

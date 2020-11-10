@@ -20,6 +20,7 @@ export default (state = initialState, action) => {
       });
     case POST_PROFILE_SUCCESS:
       return produce(state, draft => {
+        console.log('>>>>>>>>>', action.payload);
         draft.loading = false;
         draft.userData = action.payload;
       });

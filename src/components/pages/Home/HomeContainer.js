@@ -21,6 +21,7 @@ function HomeContainer({
     memoAuthService
       .getUser()
       .then(info => {
+        console.log(info);
         if (isSubscribed) {
           postUserId(info.sub);
           postProfile(info);

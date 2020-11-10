@@ -1,3 +1,5 @@
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
+
 import { INITIALIZE_USER } from './userActionTypes';
 
 import {
@@ -47,7 +49,15 @@ export const postProfile = (userData, editing) => async dispatch => {
     if (editing) {
       dispatch({ type: EDIT_PROFILE_SUCCESS, payload: userData });
     } else {
-      dispatch({ type: POST_PROFILE_SUCCESS, payload: userData });
+      axiosWithAuth()
+        .get(`/profiles/${userData.sub}`)
+        .then(response => {
+          console.log(response);
+          dispatch({ type: POST_PROFILE_SUCCESS, payload: response.data });
+        })
+        .catch(err => {
+          dispatch({ type: POST_PROFILE_FAILURE, payload: err });
+        });
     }
   } catch (err) {
     dispatch({ type: POST_PROFILE_FAILURE, payload: err });
