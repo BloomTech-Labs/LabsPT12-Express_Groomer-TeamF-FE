@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { Layout, Menu, Button, Row, Typography } from 'antd';
 import { useOktaAuth } from '@okta/okta-react';
 
-import './Navbar.css';
+import { log } from '../../utils/log';
 
 import {
   UserOutlined,
@@ -26,20 +26,15 @@ function ClientNav(props) {
       breakpoint={'lg'}
       collapsedWidth={0}
       onBreakpoint={broken => {
-        console.log(broken);
+        log(broken);
       }}
       onCollapse={(collapsed, type) => {
-        console.log(collapsed, type);
+        log(`${collapsed}, ${type}`);
       }}
       style={{
         height: '100vh',
       }}
     >
-      <div className="logo">
-        <Title className="welcome" level={4}>
-          Express Groomers
-        </Title>
-      </div>
       <Menu
         theme="dark"
         onClick={props.handleClick}

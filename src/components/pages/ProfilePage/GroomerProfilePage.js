@@ -18,7 +18,7 @@ const GroomerProfilePage = ({ user }) => {
           <div className="user-profile">
             <div className="user-info">
               <h2>{user.name}</h2>
-              <img className="profile-pic" src={profilepic}></img>
+              <img className="profile-pic" src={profilepic} alt="avatar"></img>
             </div>
             <div className="user-info" style={{ fontSize: '1.3rem' }}>
               <span>Email: {user.email} </span>{' '}
