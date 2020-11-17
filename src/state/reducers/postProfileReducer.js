@@ -20,16 +20,13 @@ export default (state = initialState, action) => {
       });
     case POST_PROFILE_SUCCESS:
       return produce(state, draft => {
-        console.log('>>>>>>>>>', action.payload);
         draft.loading = false;
         draft.userData = action.payload;
       });
     case EDIT_PROFILE_SUCCESS:
       return produce(state, draft => {
         draft.loading = false;
-        draft.userData.email = action.payload.email;
-        draft.userData.preferred_username = action.payload.preferred_username;
-        draft.userData.family_name = action.payload.family_name;
+        draft.userData = action.payload.profile;
       });
     case POST_PROFILE_FAILURE:
       return produce(state, draft => {

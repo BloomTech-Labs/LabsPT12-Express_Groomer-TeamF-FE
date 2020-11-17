@@ -1,13 +1,13 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
 
-const UserEdit = ({ user, setProfileEdit, profileEdit }) => {
+const UserEdit = ({ user, setProfileEdit, profileEdit, userId }) => {
   //onFinish is a Antd Form's function that comes integrated that takes all the data on the form
   //and passes it as key value pairs nested inside an object, so just using the event that's returned
   //will be enough to sent the data to redux. no need to even keep track of state "manually".
   const handleFinish = e => {
     setProfileEdit(false);
-    profileEdit(e, 'editing');
+    profileEdit(e, 'editing', userId);
   };
 
   return (
@@ -28,10 +28,10 @@ const UserEdit = ({ user, setProfileEdit, profileEdit }) => {
           <Form.Item name="email" label="Email">
             <Input />
           </Form.Item>
-          <Form.Item name="preferred_username" label="Username">
+          <Form.Item name="name" label="Name">
             <Input />
           </Form.Item>
-          <Form.Item name="family_name" label="Other Info">
+          <Form.Item name="city" label="City">
             <Input />
           </Form.Item>
           <Form.Item>

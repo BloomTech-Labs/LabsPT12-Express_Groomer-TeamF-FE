@@ -43,16 +43,23 @@ export const postUserId = userId => async dispatch => {
   }
 };
 
-export const postProfile = (userData, editing) => async dispatch => {
+export const postProfile = (userData, editing, id) => async dispatch => {
   dispatch({ type: POST_PROFILE_INITIAL, payload: true });
   try {
     if (editing) {
-      dispatch({ type: EDIT_PROFILE_SUCCESS, payload: userData });
+      const dataPlusId = { ...userData, id };
+      axiosWithAuth()
+        .put(`/profiles`, dataPlusId)
+        .then(response => {
+          dispatch({ type: EDIT_PROFILE_SUCCESS, payload: response.data });
+        })
+        .catch(err => {
+          dispatch({ type: POST_PROFILE_FAILURE, payload: err });
+        });
     } else {
       axiosWithAuth()
         .get(`/profiles/${userData.sub}`)
         .then(response => {
-          console.log(response);
           dispatch({ type: POST_PROFILE_SUCCESS, payload: response.data });
         })
         .catch(err => {
