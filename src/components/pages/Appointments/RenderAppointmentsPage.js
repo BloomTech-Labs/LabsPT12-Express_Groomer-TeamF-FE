@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { Form, Select } from 'antd';
 import { useSelector } from 'react-redux';
+import flatpickr from 'flatpickr';
 
 import GroomerMap from '../../mapbox/GroomerMap';
 import { log } from '../../../utils/log';
 
-function RenderAppointmentsPage() {
-  const userData = useSelector(state => state.postProfileReducer.userData);
+const { Option } = Select;
 
+function RenderAppointmentsPage() {
+  const $datePicker = useRef(null);
   const groomers = [
     {
       id: '1',
@@ -30,13 +33,55 @@ function RenderAppointmentsPage() {
     },
   ];
 
+  // Init flatpickr
+  useEffect(() => {
+    // Render calendar
+    // grey out invalid dates
+    const calendar = flatpickr($datePicker.current, {
+      disable: [
+        // Return true to disable
+        date => {
+          // Is date in the past - only show future dates
+          const isBeforeToday =
+            new Date(date.toDateString()) < new Date(new Date().toDateString());
+          return isBeforeToday;
+        },
+      ],
+      locale: {
+        firstDayOfWeek: 1, // Start week on Monday
+      },
+    });
+  }, []);
+
   return (
     <>
-      <div className="container page appointments">
-        <h1 className="title">Book an Appointment</h1>
-        <div className="groomer-map">
-          <GroomerMap groomers={groomers} onGroomerSelect={data => log(data)} />
-        </div>
+      <div className="groomer-map form-item">
+        <GroomerMap groomers={groomers} onGroomerSelect={data => log(data)} />
+      </div>
+      <div className="select-pet form-item input">
+        <Form.Item name="pet" rules={[{ required: true }]}>
+          <Select placeholder="Select Pet" onChange={log} allowClear>
+            <Option value="">loading</Option>
+            <Option value="Example Pet 1">Example Pet 1</Option>
+            <Option value="Example Pet 2">Example Pet 2</Option>
+          </Select>
+
+          <Select placeholder="Select Service" onChange={log} allowClear>
+            <Option value="">loading</Option>
+            <Option value="Example Service 1">Example Service 1</Option>
+            <Option value="Example Service 2">Example Service 2</Option>
+          </Select>
+        </Form.Item>
+      </div>
+
+      <div className="form-item input">
+        <input
+          ref={$datePicker}
+          onChange={date => log(date)}
+          className="ant-input"
+          type="text"
+          placeholder="Select Date.."
+        />
       </div>
     </>
   );

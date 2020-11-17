@@ -1,4 +1,12 @@
 .appointments {
+  .form-item {
+    margin-bottom: 28px;
+
+    &.input {
+      max-width: 400px;
+    }
+  }
+
   .groomer-map {
     position: relative;
     width: 100%;
