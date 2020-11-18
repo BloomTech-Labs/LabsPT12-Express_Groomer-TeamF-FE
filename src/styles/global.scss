@@ -43,6 +43,10 @@ svg {
   height: 24px;
 }
 
+.center {
+  margin: auto auto;
+}
+
 .app-wrapper {
   @include container(1920px);
 }
