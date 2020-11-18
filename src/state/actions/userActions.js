@@ -1,3 +1,5 @@
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
+
 import { INITIALIZE_USER } from './userActionTypes';
 
 import {
@@ -41,13 +43,28 @@ export const postUserId = userId => async dispatch => {
   }
 };
 
-export const postProfile = (userData, editing) => async dispatch => {
+export const postProfile = (userData, editing, id) => async dispatch => {
   dispatch({ type: POST_PROFILE_INITIAL, payload: true });
   try {
     if (editing) {
-      dispatch({ type: EDIT_PROFILE_SUCCESS, payload: userData });
+      const dataPlusId = { ...userData, id };
+      axiosWithAuth()
+        .put(`/profiles`, dataPlusId)
+        .then(response => {
+          dispatch({ type: EDIT_PROFILE_SUCCESS, payload: response.data });
+        })
+        .catch(err => {
+          dispatch({ type: POST_PROFILE_FAILURE, payload: err });
+        });
     } else {
-      dispatch({ type: POST_PROFILE_SUCCESS, payload: userData });
+      axiosWithAuth()
+        .get(`/profiles/${userData.sub}`)
+        .then(response => {
+          dispatch({ type: POST_PROFILE_SUCCESS, payload: response.data });
+        })
+        .catch(err => {
+          dispatch({ type: POST_PROFILE_FAILURE, payload: err });
+        });
     }
   } catch (err) {
     dispatch({ type: POST_PROFILE_FAILURE, payload: err });
