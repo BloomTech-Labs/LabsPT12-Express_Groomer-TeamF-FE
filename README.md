@@ -1,15 +1,11 @@
 # express-groomer
 
-- Welcome to your `Basic Single Page Application Repository`. Use this to start your own Greenfield Project using ReactJS and common industry standards.
+![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
+![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)
 
-- This repository assumes a handful of industry practices and standards. We strive to keep you on the bleeding edge of the industry and as a result, we have made some opinions for you so that you don't have to; you're welcome.
+# Project
 
-- The following was built using [Create React App](https://reactjs.org/docs/create-a-new-react-app.html) for base boiler-plating. We will maintain the dependencies as according to their specifications as an Engineering Organization.
-
-## StoryBook
-
-- All of the reusable components for this repository can be [found here using a Storybook](https://lambda-school-labs.github.io/labs-spa-starter/?path=/story/form-button--basic-usage).
-- For more information on contributing to our Storybook for this application [you can see here](./src/stories/README.md).
+You can find the deployed project at [f.expressgroomer.dev](https://f.expressgroomer.dev/).
 
 ## Requirements
 
@@ -22,6 +18,7 @@
 - `REACT_APP_CLIENT_ID` Okta client id
 - `REACT_APP_OKTA_ISSUER_URI` Okta api authorization server issuer uri (eg. `https://name-438r8hr.okta.com/oauth2/default`)
 - `REACT_APP_API_URI` The URL (localhost or live) for the Backend that you're building
+- `REACT_APP_MAPBOX_API` API key for Mapbox
 
 ### Setup Steps
 
