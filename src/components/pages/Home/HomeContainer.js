@@ -12,7 +12,6 @@ function HomeContainer({
 }) {
   const { authState, authService } = useOktaAuth();
 
-  // eslint-disable-next-line
   const [memoAuthService] = useMemo(() => [authService], []);
 
   useEffect(() => {

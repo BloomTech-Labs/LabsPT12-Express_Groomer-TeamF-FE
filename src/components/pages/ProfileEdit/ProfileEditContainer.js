@@ -3,13 +3,19 @@ import { connect } from 'react-redux';
 import { postProfile } from '../../../state/actions/userActions';
 import UserEdit from './UserEdit';
 
-const ProfileEditContainer = ({ setProfileEdit, user, postProfile }) => {
+const ProfileEditContainer = ({
+  setProfileEdit,
+  user,
+  postProfile,
+  userId,
+}) => {
   return (
     <>
       <UserEdit
         user={user}
         profileEdit={postProfile}
         setProfileEdit={setProfileEdit}
+        userId={userId}
       />
     </>
   );
@@ -17,7 +23,7 @@ const ProfileEditContainer = ({ setProfileEdit, user, postProfile }) => {
 
 export default connect(
   state => {
-    return {};
+    return { userId: state.UserIdReducer.userId };
   },
   { postProfile }
 )(ProfileEditContainer);

@@ -21,9 +21,9 @@ const GroomerProfilePage = ({ user }) => {
               <img className="profile-pic" src={profilepic} alt="avatar"></img>
             </div>
             <div className="user-info" style={{ fontSize: '1.3rem' }}>
-              <span>Email: {user.email} </span>{' '}
-              <span>Username: {user.preferred_username}</span>
-              <span>Other Info: {user.family_name}</span>
+              <span>Email: {user.email}</span>
+              <span>Username: {user.name}</span>
+              <span>City: {user.city}</span>
             </div>
             <button className="edit" onClick={handleChanges}>
               Edit profile
@@ -39,7 +39,7 @@ const GroomerProfilePage = ({ user }) => {
           <div className="groomers-mini">
             <div className="userinfo">
               <h5>Shop Name:</h5>
-              Shop Location: adress #3444 dpt 52
+              Shop Location: {user.address}
             </div>
           </div>
         </div>
