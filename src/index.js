@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './state';
+import { config } from './utils/oktaConfig';
 
 import {
   BrowserRouter as Router,
@@ -15,17 +16,17 @@ import 'antd/dist/antd.less';
 import './styles/index.scss';
 import { Layout } from 'antd';
 
-import { NotFoundPage } from './components/pages/NotFound';
-import { ExampleListPage } from './components/pages/ExampleList';
-import { HomePage } from './components/pages/Home';
-import { ProfileListPage } from './components/pages/ProfileList';
-import { LoginPage } from './components/pages/Login';
-import { config } from './utils/oktaConfig';
-import { LoadingComponent } from './components/common';
-import { ProfilePages } from './components/pages/ProfilePage/';
 import Navbar from './components/navbar/Navbar';
 import Header from './components/navbar/Header';
 import Footer from './components/navbar/Footer';
+import { LoginPage } from './components/pages/Login';
+import { HomePage } from './components/pages/Home';
+import { ProfilePages } from './components/pages/ProfilePage/';
+import { ProfileListPage } from './components/pages/ProfileList';
+import { AppointmentsPage } from './components/pages/Appointments';
+import { LoadingComponent } from './components/common';
+import { NotFoundPage } from './components/pages/NotFound';
+import { ExampleListPage } from './components/pages/ExampleList';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -63,7 +64,17 @@ function App() {
             <Header />
             <Navbar />
             <Layout>
-              <Route exact path="/profile-page" component={ProfilePages} />
+              <SecureRoute
+                exact
+                path="/profile-page"
+                component={ProfilePages}
+              />
+
+              <SecureRoute
+                exact
+                path="/appointments"
+                component={AppointmentsPage}
+              />
 
               <Content style={{ padding: 24, minHeight: 360 }}>
                 <SecureRoute

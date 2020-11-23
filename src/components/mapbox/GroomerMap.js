@@ -24,9 +24,9 @@ const GroomerMap = props => {
   );
 
   const [mapboxView, setMapboxView] = useState({
-    lat: 39.0614,
-    lng: -95.3221,
-    zoom: 4.15,
+    lat: 38.8908,
+    lng: -77.0191,
+    zoom: 9.0,
   });
 
   // Currently selected Goomer on mapbox

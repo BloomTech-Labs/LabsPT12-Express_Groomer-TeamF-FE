@@ -48,3 +48,9 @@
   width: 18px;
   height: 18px;
 }
+
+.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) {
+  .ant-menu-item-selected {
+    background-color: steelblue;
+  }
+}
